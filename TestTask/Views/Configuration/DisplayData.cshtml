@@ -1,0 +1,13 @@
+﻿@model List<ConfigurationItem>
+
+<h2>Data from Database</h2>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <span>@item.Name: @item.Value</span>
+           
+        </li>
+    }
+</ul>

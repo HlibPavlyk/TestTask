@@ -1,0 +1,47 @@
+﻿@model TestTask.Models.ConfigurationItem
+
+@{
+    ViewData["Title"] = "Configuration Index";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <button id="uploadButton">Завантажити файл конфігурації JSON</button>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        document.getElementById('uploadButton').addEventListener('click', function () {
+            var input = document.createElement('input');
+            input.type = 'file';
+
+            input.onchange = function () {
+                var file = input.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.readAsText(file, 'UTF-8');
+                    reader.onload = function (e) {
+                        var jsonString = e.target.result;
+                            $.ajax({
+                                type: "POST",
+                                dataType: "json",
+                                url: '/Configuration/UpdateConfiguration',
+                            data: JSON.stringify(jsonString),
+                                contentType: "application/json",
+                            success: function (response) {
+                                window.location.href = response.redirectUrl;
+                            },
+                                error: function (response) {
+                                    alert("failed");
+                                }
+                            });
+                    };
+                }
+            };
+
+            input.click();
+        });
+    </script>
+}
