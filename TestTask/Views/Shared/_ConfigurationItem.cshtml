@@ -1,0 +1,18 @@
+﻿@model TestTask.Models.ConfigurationItem
+
+<li>
+    <span>@Model.Name: @Model.Value</span>
+    <ul>
+        @if (Model.Children != null)
+        {
+            foreach (var childItem in Model.Children)
+            {
+                if (!(ViewBag.ProcessedItems as HashSet<string>).Contains(childItem.Name))
+                {
+                    (ViewBag.ProcessedItems as HashSet<string>).Add(childItem.Name);
+                    @Html.Partial("_ConfigurationItem", childItem)
+                }
+            }
+        }
+    </ul>
+</li>

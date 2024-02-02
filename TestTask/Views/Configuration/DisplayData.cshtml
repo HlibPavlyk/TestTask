@@ -1,13 +1,24 @@
-﻿@model List<ConfigurationItem>
+﻿@model List<TestTask.Models.ConfigurationItem>
 
-<h2>Data from Database</h2>
+@{
+    var processedItems = ViewBag.ProcessedItems as HashSet<string> ?? new HashSet<string>();
+}
+<div>
+    <h2>Data from Database</h2>
 
-<ul>
-    @foreach (var item in Model)
-    {
-        <li>
-            <span>@item.Name: @item.Value</span>
-           
-        </li>
-    }
-</ul>
+    <ul>
+        @foreach (var item in Model)
+        {
+            if (!processedItems.Contains(item.Name))
+            {
+                processedItems.Add(item.Name);
+                @Html.Partial("_ConfigurationItem", item)
+            }
+        }
+    </ul>
+
+    <a asp-controller="Configuration" asp-action="Index" class="btn btn btn-dark">Go Back</a>
+</div>
+
+
+

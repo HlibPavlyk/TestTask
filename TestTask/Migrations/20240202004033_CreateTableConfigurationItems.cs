@@ -5,7 +5,7 @@
 namespace TestTask.Migrations
 {
     /// <inheritdoc />
-    public partial class AddConfigurationItems : Migration
+    public partial class CreateTableConfigurationItems : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,26 +14,24 @@ namespace TestTask.Migrations
                 name: "ConfigurationItems",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ParentId = table.Column<int>(type: "int", nullable: true)
+                    ConfigurationItemName = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ConfigurationItems", x => x.Id);
+                    table.PrimaryKey("PK_ConfigurationItems", x => x.Name);
                     table.ForeignKey(
-                        name: "FK_ConfigurationItems_ConfigurationItems_ParentId",
-                        column: x => x.ParentId,
+                        name: "FK_ConfigurationItems_ConfigurationItems_ConfigurationItemName",
+                        column: x => x.ConfigurationItemName,
                         principalTable: "ConfigurationItems",
-                        principalColumn: "Id");
+                        principalColumn: "Name");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConfigurationItems_ParentId",
+                name: "IX_ConfigurationItems_ConfigurationItemName",
                 table: "ConfigurationItems",
-                column: "ParentId");
+                column: "ConfigurationItemName");
         }
 
         /// <inheritdoc />

@@ -5,7 +5,7 @@
 namespace TestTask.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateConfigurationItems1 : Migration
+    public partial class UpdateTableConfigurationItems : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

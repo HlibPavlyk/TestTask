@@ -10,5 +10,9 @@ namespace TestTask.Data
                      
         }
         public DbSet<ConfigurationItem> ConfigurationItems { get; set; }
+        public void ClearTable()
+        {
+            Database.ExecuteSqlRaw("DELETE FROM ConfigurationItems");
+        }
     }
 }

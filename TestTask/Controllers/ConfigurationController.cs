@@ -23,13 +23,15 @@ namespace TestTask.Controllers
         }
         public IActionResult DisplayData()
         {
+            var processedItems = new HashSet<string>();
+            ViewBag.ProcessedItems = processedItems;
             List<ConfigurationItem> configurationItems = _context.ConfigurationItems.ToList();
             return View(configurationItems);
         }
         [HttpPost]
         public IActionResult UpdateConfiguration([FromBody] string data)
         {
-            Console.WriteLine($"JSON uploaded: {data}");
+            _context.ClearTable();
 
             try
             {
@@ -44,11 +46,11 @@ namespace TestTask.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($"Error updating configuration: {ex.Message}");
-                return BadRequest(new { success = false, message = "Помилка при оновленні конфігурації." });
+                return BadRequest(new { success = false, message = "Error updating configuration" });
             }
         }
 
-        private void ProcessDynamicObject(dynamic dynamicObject, List<ConfigurationItem> children = null)
+        private void ProcessDynamicObject(dynamic dynamicObject, ICollection<ConfigurationItem> children = null)
         {
             foreach (var property in dynamicObject)
             {

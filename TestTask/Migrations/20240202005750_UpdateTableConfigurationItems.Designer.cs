@@ -11,8 +11,8 @@ using TestTask.Data;
 namespace TestTask.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240201201227_UpdateConfigurationItems")]
-    partial class UpdateConfigurationItems
+    [Migration("20240202005750_UpdateTableConfigurationItems")]
+    partial class UpdateTableConfigurationItems
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
